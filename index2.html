@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+    <title>Dashboard Embedding Example</title>
+    <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@1.20.0/dist/quicksight-embedding-js-sdk.min.js"></script>
+    <script type="text/javascript">
+        let embeddedDashboardExperience;
+        function onDashboardLoad(payload) {
+            console.log("Do something when the dashboard is fully loaded.");
+        }
+
+        function onError(payload) {
+            console.log("Do something when the dashboard fails loading");
+        }
+
+        function embedDashboard() {
+            const containerDiv = document.getElementById("embeddingContainer");
+            const options = {
+                url: "https://ap-south-1.quicksight.aws.amazon.com/sn/accounts/768558422143/dashboards/b3dc92d0-bb36-4889-b921-7e6eebdfc491?directory_alias=investacc", // replace this value with the url generated via embedding API
+                container: containerDiv,
+                parameters: {
+                    country: "United States",
+                    states: [
+                        "California",
+                        "Washington"
+                    ]
+                },
+                scrolling: "no",
+                height: "700px",
+                width: "1000px",
+                iframeResizeOnSheetChange: false,
+                sheetId: 'YOUR_SHEETID',
+                sheetTabsDisabled: false,
+                locale: "en-US",
+                footerPaddingEnabled: true,
+                printEnabled: false,
+                undoRedoDisabled: false,
+                resetDisabled: false
+            };
+            embeddedDashboardExperience = QuickSightEmbedding.embedDashboard(options);
+            embeddedDashboardExperience.on("error", onError);
+            embeddedDashboardExperience.on("load", onDashboardLoad);
+        }
+
+        function onCountryChange(obj) {
+            dashboard.setParameters({country: obj.value});
+        }
+    </script>
+</head>
+
+<body onload="embedDashboard()">
+    <span>
+        <label for="country">Country</label>
+        <select id="country" name="country" onchange="onCountryChange(this)">
+            <option value="United States">United States</option>
+            <option value="Mexico">Mexico</option>
+            <option value="Canada">Canada</option>
+        </select>
+    </span>
+    <div id="embeddingContainer"></div>
+</body>
+
+</html>
