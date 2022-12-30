@@ -7,9 +7,9 @@
    
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" 
-    frame src="'self' https://ap-south-1.quicksight.aws.amazon.com/ ">
+    Content-Security-Policy: frame-ancestors 'self' *>
     <meta http-equiv="Content-Security-Polcy" 
-     content="script-src 'self' https://ap-south-1.quicksight.aws.amazon.com/ ">
+     content="script-src 'self' * ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quicksight Dashboard</title>
@@ -28,6 +28,7 @@
         height="720"
         src="https://ap-south-1.quicksight.aws.amazon.com/sn/embed/share/accounts/768558422143/dashboards/7028cf7a-fcbf-4e49-a960-0370326fc3ca?directory_alias=investacc">
     </iframe>
+
 </div>
 </body>
 </html>
